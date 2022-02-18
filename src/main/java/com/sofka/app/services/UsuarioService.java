@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Optional;
 
 @Service // Se establece que es un sevicio
@@ -13,8 +15,28 @@ public class UsuarioService {
     @Autowired // Instancia automáticamente usuarioService
     UsuarioRepository usuarioRepository;
 
-    public ArrayList<UsuarioModel> obtenerUsuarios() {
+    public ArrayList<UsuarioModel> listarUsuariosPorID() {
         return (ArrayList<UsuarioModel>) usuarioRepository.findAll();
+    }
+
+    public ArrayList<UsuarioModel> listarUsuariosPorNombre() {
+        ArrayList<UsuarioModel> usuarios = (ArrayList<UsuarioModel>) usuarioRepository.findAll();
+        Collections.sort(usuarios, new Comparator<UsuarioModel>() {
+            public int compare(UsuarioModel usuario1, UsuarioModel usuario2) {
+                return usuario1.getNombre().toLowerCase().compareTo(usuario2.getNombre().toLowerCase());
+            }
+        });
+        return usuarios;
+    }
+
+    public ArrayList<UsuarioModel> listarUsuariosPorPrioridad() {
+        ArrayList<UsuarioModel> usuarios = (ArrayList<UsuarioModel>) usuarioRepository.findAll();
+        Collections.sort(usuarios, new Comparator<UsuarioModel>() {
+            public int compare(UsuarioModel usuario1, UsuarioModel usuario2) {
+                return usuario1.getPrioridad().compareTo(usuario2.getPrioridad());
+            }
+        });
+        return usuarios;
     }
 
     public UsuarioModel guardarUsuario(UsuarioModel usuario) {

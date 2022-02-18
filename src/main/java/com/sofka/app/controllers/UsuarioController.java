@@ -15,8 +15,18 @@ public class UsuarioController {
     UsuarioService usuarioService;
 
     @GetMapping("/listar/id") // Cuando llegue una petición GET
-    public ArrayList<UsuarioModel> obtenerUsuarios() {
-        return usuarioService.obtenerUsuarios();
+    public ArrayList<UsuarioModel> listarUsuariosPorID() {
+        return usuarioService.listarUsuariosPorID();
+    }
+
+    @GetMapping("/listar/nombre")
+    public ArrayList<UsuarioModel> listarUsuariosPorNombre() {
+        return usuarioService.listarUsuariosPorNombre();
+    }
+
+    @GetMapping("/listar/prioridad")
+    public ArrayList<UsuarioModel> listarUsuariosPorPrioridad() {
+        return usuarioService.listarUsuariosPorPrioridad();
     }
 
     @PostMapping("/guardar") // Cuando llegue una petición POST
