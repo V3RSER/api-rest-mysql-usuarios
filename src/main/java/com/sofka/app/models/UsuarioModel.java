@@ -3,12 +3,12 @@ package com.sofka.app.models;
 import javax.persistence.*;
 
 @Entity // Se establece que es un modelo
-@Table(name = "usuario") // Se establece que la tabla asociada al modelo tenga este nombre
+@Table(name = "usuario") // Se establece que la tabla asociada al modelo tenga el nombre usuario
 public class UsuarioModel {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(unique = true, nullable = false)
+    @Id // Le dice a la DB que este atributo es un identificador
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Vuelve al identificador autoincrementable
+    @Column(unique = true, nullable = false) // Establece que tiene que ser único y no puede ser nulo
     private Long id;
     private String nombre;
     private String email;
