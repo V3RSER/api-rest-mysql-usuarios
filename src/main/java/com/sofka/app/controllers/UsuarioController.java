@@ -14,27 +14,27 @@ public class UsuarioController {
     @Autowired // Instancia automáticamente usuarioService
     UsuarioService usuarioService;
 
-    @GetMapping() // Cuando llegue una petición GET
+    @GetMapping("/listar/id") // Cuando llegue una petición GET
     public ArrayList<UsuarioModel> obtenerUsuarios() {
         return usuarioService.obtenerUsuarios();
     }
 
-    @PostMapping() // Cuando llegue una petición POST
+    @PostMapping("/guardar") // Cuando llegue una petición POST
     public UsuarioModel guardarUsuario(@RequestBody UsuarioModel usuario) {
         return this.usuarioService.guardarUsuario(usuario);
     }
 
-    @GetMapping(path = "/{id}")
+    @GetMapping("/{id}")
     public Optional<UsuarioModel> obtenerUsuarioPorId(@PathVariable("id") Long id) {
         return this.usuarioService.obtenerPorId(id);
     }
 
-    @GetMapping("/query")
+    @GetMapping("/consulta")
     public ArrayList<UsuarioModel> obtenerUsuarioPorPrioridad(@RequestParam("prioridad") Integer prioridad) {
         return this.usuarioService.obtenerPorPrioridad(prioridad);
     }
 
-    @DeleteMapping(path = "/{id}")
+    @DeleteMapping("/eliminar/{id}") // Cuando llegue una petición DELETE
     public String eliminarPorId(@PathVariable("id") Long id) {
         boolean ok = this.usuarioService.eliminarUsuario(id);
         if (ok) {
@@ -43,4 +43,10 @@ public class UsuarioController {
             return "No pudo eliminar el usuario con id" + id;
         }
     }
+
+    @PutMapping("actualizar/{id}") // Cuando llegue una petición PUT
+    public UsuarioModel actualizarUsuario(@PathVariable("id") Long id, @RequestBody UsuarioModel usuario) {
+        return usuarioService.actualizarUsuario(id, usuario);
+    }
+
 }

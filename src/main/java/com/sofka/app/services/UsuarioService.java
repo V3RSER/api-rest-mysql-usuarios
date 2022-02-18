@@ -39,4 +39,15 @@ public class UsuarioService {
         }
     }
 
+    public UsuarioModel actualizarUsuario(Long id, UsuarioModel usuario) {
+        Optional<UsuarioModel> oldUsuario = usuarioRepository.findById(id);
+
+        if (oldUsuario.isPresent()) {
+            usuario.setId(id);
+            usuario.setNombre(usuario.getNombre() == null ? oldUsuario.get().getNombre() : usuario.getNombre());
+            usuario.setEmail(usuario.getEmail() == null ? oldUsuario.get().getEmail() : usuario.getEmail());
+            usuario.setPrioridad(usuario.getPrioridad() == null ? oldUsuario.get().getPrioridad() : usuario.getPrioridad());
+            return usuarioRepository.save(usuario);
+        } else return usuario;
+    }
 }
